@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@import "fonts/fonts";
+@import "base/common";
+@tailwind utilities;
+
+:root {
+  // Font size
+  --large-font-size: 1.125rem;
+  --base-font-size: 0.8125rem;
+  --small-font-size: 0.75rem;
+  // Font family
+  --primary-heading-font: "opensans-semibold", sans-serif;
+  --secondary-heading-font: "sourcesans-pro-semibold", sans-serif;
+  --primary-base-font: "sourcesans-pro-regular", sans-serif;
+  --secondary-base-font: "opensans-regular", sans-serif;
+  --primary-malayalam-font: "manjari-regular", sans-serif;
+}
+html[lang="ml"] {
+  &:root {
+    --primary-heading-font: "manjari-regular", sans-serif;
+    --secondary-heading-font: "manjari-regular", sans-serif;
+    --primary-base-font: "manjari-regular", sans-serif;
+    --secondary-base-font: "manjari-regular", sans-serif;
+  }
+}
+@for $i from 1 through 6 {
+  h#{7 - $i} {
+    font-family: var(--primary-heading-font);
+  }
+}
+body {
+  font-family: var(--primary-base-font);
+}
