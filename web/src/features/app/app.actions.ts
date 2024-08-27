@@ -25,6 +25,20 @@ export function getPublicUsers(query: string): AppThunk<Promise<any>> {
   };
 }
 
+export function getUserPublicRepositories(
+  query: string
+): AppThunk<Promise<any>> {
+  return async (dispatch): Promise<any> => {
+    return await dispatch(
+      requestHandler({
+        url: `/api/github/users/${query}/repositories`,
+        method: "GET",
+        redirectOnFailure: true,
+      })
+    );
+  };
+}
+
 export function bookmarkRepositories(data: any): AppThunk<Promise<any>> {
   return async (dispatch): Promise<any> => {
     return await dispatch(

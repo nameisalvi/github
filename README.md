@@ -17,3 +17,5 @@ The application allows users to search for public repositories and users on GitH
 5. Move to the frontend directory by running `cd web` and install the frontend dependencies with `npm install`.
 6. Start the frontend development server with `npm run dev`.
 7. Open your browser and go to http://localhost:5173/ to access the application.
+
+Sample csv `repo.csv` attached on root directory.

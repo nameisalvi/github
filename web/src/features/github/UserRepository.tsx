@@ -1,27 +1,32 @@
 import { useEffect, type FC, useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { StarIcon } from "@heroicons/react/24/solid";
+import { toast } from "react-toastify";
 
 import { getAuthToken } from "../../shared/helpers/general-helper";
 import { useAppDispatch } from "../../store";
-import { getPublicUsers } from "../app/app.actions";
+import {
+  bookmarkRepositories,
+  getUserPublicRepositories,
+} from "../app/app.actions";
 import { Header } from "../pages/partials/Header";
 
 /**
- * Page component.
+ * Repository component.
  *
  * @returns React component.
  */
-export const User: FC = () => {
+export const UserRepository: FC = () => {
   const { query } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [users, setUsers] = useState<any>([]);
+  const [repos, setRepos] = useState<any>([]);
 
   const loadData = useCallback(async () => {
-    const response = await dispatch(getPublicUsers(query as string));
-    if (response?.items) {
-      setUsers(response?.items);
+    const response = await dispatch(getUserPublicRepositories(query as string));
+    if (response) {
+      setRepos(response);
     }
   }, [dispatch]);
 
@@ -33,48 +38,64 @@ export const User: FC = () => {
     }
   }, []);
 
+  const handleBookmark = async (data: any) => {
+    const bookmarkResponse = await dispatch(bookmarkRepositories(data));
+    if (bookmarkResponse?.message) {
+      toast(bookmarkResponse.message);
+    } else {
+      toast("Bookmark added");
+    }
+  };
+
   return (
     <>
-      <Header name="Users" />
+      <Header name="User Repositories" />
       <div className="relative overflow-x-auto bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b border-gray-200 dark:border-gray-600">
             <tr>
               <th scope="col" className="px-6 py-3 font-medium">
-                PROFILE IMAGE
+                REPOSITORY NAME
               </th>
               <th scope="col" className="px-6 py-3 font-medium">
-                NAME
+                ACTION
               </th>
               <th scope="col" className="px-6 py-3 font-medium">
-                USER REPOSITORY
+                BOOKMARK
               </th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user: any) => (
+            {repos.map((repo: any) => (
               <tr
-                key={user.id}
+                key={repo.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900"
               >
-                <td className="px-6 py-4">
-                  <img
-                    src={user.avatar_url}
-                    alt={user.login}
-                    className="w-24 h-24 object-cover rounded-full border border-gray-200 dark:border-gray-600"
-                  />
-                </td>
                 <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100">
-                  {user.login}
+                  {repo.full_name}
+                </td>
+                <td className="px-6 py-4">
+                  <a
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-700 text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+                  >
+                    Go to Git
+                  </a>
                 </td>
                 <td className="px-6 py-4">
                   <button
                     onClick={() =>
-                      navigate(`/github/users/${user.login}/repositories`)
+                      handleBookmark({
+                        repositoryId: repo.id,
+                        repositoryName: repo.full_name,
+                        repositoryUrl: repo.html_url,
+                      })
                     }
-                    className="bg-blue-700 text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+                    className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                   >
-                    User Repositories
+                    <StarIcon className="w-5 h-5" />
                   </button>
                 </td>
               </tr>

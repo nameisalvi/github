@@ -10,6 +10,7 @@ import { Logout } from "../features/auth/Logout";
 import { Bookmark } from "../features/github/Bookmark";
 import { useAppSelector } from "../store";
 import { Home } from "../features/home/Home";
+import { UserRepository } from "../features/github/UserRepository";
 
 /**
  * Component that define all the application routes and its UI (view) component.
@@ -41,6 +42,10 @@ export const AppRoutes: FC = () => {
       <Route path="home" element={<Home />} />
       <Route path="github/repositories/:query" element={<Repository />} />
       <Route path="github/users/:query" element={<User />} />
+      <Route
+        path="github/users/:query/repositories"
+        element={<UserRepository />}
+      />
       <Route path="bookmarks" element={<Bookmark />} />
 
       <Route path="*" element={<NotFoundPage />} />
