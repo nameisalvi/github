@@ -20,7 +20,7 @@ The application allows users to search for public repositories and users on GitH
 
 Sample csv `repo.csv` attached on root directory.
 
-# Screenshots
+# Screenshot
 
 ![Register.png](screenshots/Register.png)
 ![Login.png](screenshots/Login.png)
