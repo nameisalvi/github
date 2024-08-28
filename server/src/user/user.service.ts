@@ -8,6 +8,11 @@ import { CreateUserRequestDto } from './dto/create-user.request.dto';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
+  /**
+   *
+   * @param createUserDto
+   * @returns
+   */
   async create(createUserDto: CreateUserRequestDto): Promise<User> {
     if (await this.findUserByEmail(createUserDto.email)) {
       throw new BadRequestException({
@@ -27,6 +32,11 @@ export class UserService {
     return user.save();
   }
 
+  /**
+   *
+   * @param email
+   * @returns
+   */
   async findUserByEmail(email: string): Promise<User | null> {
     return this.userModel.findOne({ email }).exec();
   }

@@ -12,6 +12,12 @@ export class BookmarkService {
     private githubService: GithubService,
   ) {}
 
+  /**
+   *
+   * @param userId
+   * @param bookmarkDto
+   * @returns
+   */
   async bookmarkRepository(
     userId: string,
     bookmarkDto: CreateBookmarkRequestDto,
@@ -31,6 +37,12 @@ export class BookmarkService {
     return newBookmark.save();
   }
 
+  /**
+   *
+   * @param userId
+   * @param repositories
+   * @returns
+   */
   async validateAndBookmarkRepositories(
     userId: string,
     repositories: any[],
@@ -54,6 +66,12 @@ export class BookmarkService {
     return validRepositories;
   }
 
+  /**
+   *
+   * @param userId
+   * @param repositoryId
+   * @returns
+   */
   async findBookmark(
     userId: string,
     repositoryId: number,
@@ -61,10 +79,20 @@ export class BookmarkService {
     return this.bookmarkModel.findOne({ userId, repositoryId }).exec();
   }
 
+  /**
+   *
+   * @param userId
+   * @returns
+   */
   async listBookmarks(userId: string): Promise<Bookmark[]> {
     return this.bookmarkModel.find({ userId }).exec();
   }
 
+  /**
+   *
+   * @param userId
+   * @returns
+   */
   async listBookmarkChartData(userId: string): Promise<any[]> {
     return await this.bookmarkModel
       .aggregate([
@@ -84,6 +112,12 @@ export class BookmarkService {
       .exec();
   }
 
+  /**
+   *
+   * @param userId
+   * @param repositoryId
+   * @returns
+   */
   async removeBookmark(userId: string, repositoryId: number): Promise<any> {
     return this.bookmarkModel.deleteOne({ userId, repositoryId }).exec();
   }
