@@ -10,7 +10,7 @@ The application allows users to search for public repositories and users on GitH
 
 # How to run?
 
-1. Install MongoDB by following the instructions here: MongoDB Installation on Ubuntu.
+1. Install MongoDB by following the instructions here: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/ .
 2. Navigate to the project root directory in your terminal.
 3. Run `cd server` and then `npm install` to install the server dependencies.
 4. Start the server with `npm run start`.
@@ -19,3 +19,12 @@ The application allows users to search for public repositories and users on GitH
 7. Open your browser and go to http://localhost:5173/ to access the application.
 
 Sample csv `repo.csv` attached on root directory.
+
+# Screenshots
+
+![Register.png](screenshots/Register.png)
+![Login.png](screenshots/Login.png)
+![Home.png](screenshots/Home.png)
+![Repo.png](screenshots/Repo.png)
+![Users.png](screenshots/Users.png)
+![Bookmark.png](screenshots/Bookmark.png)
